@@ -1,6 +1,7 @@
 """Persistencia de configuración para Tecnomata Hi-Fi."""
 import json
 import base64
+import keyring
 from pathlib import Path
 
 CONFIG_DIR = Path.home() / ".config" / "tecnomata-hifi"
@@ -9,7 +10,6 @@ CONFIG_FILE = CONFIG_DIR / "config.json"
 DEFAULTS = {
     "server_url": "",
     "username": "",
-    "password_b64": "",
     "volume": 0.7,
     "orientation": "horizontal",  # "horizontal" | "vertical"
     "bar_x": -1,
@@ -32,6 +32,7 @@ class Config:
     def __init__(self):
         self._data: dict = dict(DEFAULTS)
         self.load()
+        self._migrate_password()
 
     # -- persistencia --
 
@@ -67,22 +68,32 @@ class Config:
     def username(self) -> str:
         return self._data.get("username", "")
 
+    def _migrate_password(self):
+        legacy = self._data.get("password_b64")
+        if not legacy:
+            return
+        try:
+            password = base64.b64decode(legacy, validate=True).decode("utf-8")
+            keyring.set_password("tecnomata-hifi", "navidrome", password)
+        except Exception:
+            return
+        del self._data["password_b64"]
+        self.save()
+
     @property
     def password(self) -> str:
-        b64 = self._data.get("password_b64", "")
-        if b64:
-            try:
-                return base64.b64decode(b64).decode("utf-8")
-            except Exception:
-                return ""
-        return ""
+        try:
+            return keyring.get_password("tecnomata-hifi", "navidrome") or ""
+        except Exception:
+            return ""
 
     def set_credentials(self, url: str, username: str, password: str):
+        keyring.set_password("tecnomata-hifi", "navidrome", password)
         self._data["server_url"] = url
         self._data["username"] = username
-        self._data["password_b64"] = base64.b64encode(password.encode()).decode()
+        self._data.pop("password_b64", None)
         self.save()
 
     @property
     def is_configured(self) -> bool:
-        return bool(self._data.get("username") and self._data.get("password_b64"))
+        return bool(self.server_url and self.username and self.password)

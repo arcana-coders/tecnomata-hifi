@@ -33,7 +33,7 @@ class LoginDialog(QDialog):
         lay = QVBoxLayout(self)
         lay.setSpacing(6)
 
-        title = QLabel("🎵  SONY Hi-Fi · Navidrome")
+        title = QLabel("🎵  TECNOMATA Hi-Fi · Navidrome")
         title.setObjectName("title")
         title.setAlignment(Qt.AlignCenter)
         lay.addWidget(title)
@@ -79,7 +79,11 @@ class LoginDialog(QDialog):
 
         client = SubsonicClient(url, user, pwd)
         if client.ping():
-            self.config.set_credentials(url, user, pwd)
+            try:
+                self.config.set_credentials(url, user, pwd)
+            except Exception:
+                QMessageBox.critical(self, "Credenciales", "No se pudieron guardar las credenciales de forma segura en Windows.")
+                return
             self.accept()
         else:
             QMessageBox.critical(
@@ -360,7 +364,7 @@ class HiFiApp:
 
     def _setup_tray(self):
         self.tray = QSystemTrayIcon()
-        self.tray.setToolTip("Tecnomata Hi-Fi — Sony Retro Boombox")
+        self.tray.setToolTip("Tecnomata Hi-Fi — reproductor retro")
 
         menu = QMenu()
         menu.setStyleSheet(f"""

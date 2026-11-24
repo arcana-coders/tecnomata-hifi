@@ -64,7 +64,7 @@ def create_hifi_icon(size=256):
 
     # Header
     draw.rectangle([cen_x1, s(32), cen_x2, s(46)], fill=(18, 19, 24, 255))
-    draw.text((cen_x1 + s(6), s(33)), "SONY", fill=(240, 240, 245, 255))
+    draw.text((cen_x1 + s(6), s(33)), "TECNO", fill=(240, 240, 245, 255))
     draw.text((cen_x1 + s(52), s(34)), "Hi-Fi", fill=(255, 102, 0, 255))
 
     # Display VFD

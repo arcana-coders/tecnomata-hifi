@@ -23,20 +23,20 @@ class SonyBadge(QWidget):
 
         # ── 1. Logotipo SONY en tipografía Serif clásica con brillo metálico ──
         # Sony usa tradicionalmente una variante de Clarendon / Century Schoolbook
-        sony_font = QFont("Georgia", 11, QFont.Bold)
-        sony_font.setLetterSpacing(QFont.AbsoluteSpacing, 1.6)
+        sony_font = QFont("Segoe UI", 8, QFont.Bold)
+        sony_font.setLetterSpacing(QFont.AbsoluteSpacing, 0.2)
         p.setFont(sony_font)
 
         # Sombra grabada en relieve
         p.setPen(QColor("#08090c"))
         sony_rect_shadow = QRectF(1, 4, w, 18)
         align = Qt.AlignCenter if self._vertical else (Qt.AlignLeft | Qt.AlignVCenter)
-        p.drawText(sony_rect_shadow, align, "SONY")
+        p.drawText(sony_rect_shadow, align, "TECNOMATA")
 
         # Texto frontal con brillo plata titanio
         p.setPen(QColor("#eae6dc"))
         sony_rect = QRectF(0, 3, w, 18)
-        p.drawText(sony_rect, align, "SONY")
+        p.drawText(sony_rect, align, "TECNOMATA")
 
         # ── 2. Subtítulo serigrafiado dorado tenue ──
         sub_font = QFont("Segoe UI", 5, QFont.Bold)

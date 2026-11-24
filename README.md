@@ -20,6 +20,6 @@ También puedes abrir `iniciar.bat` después de instalar las dependencias. Intro
 
 ## Datos y privacidad
 
-La configuración se guarda en `%USERPROFILE%\.config\tecnomata-hifi\config.json` y la caché de letras en la carpeta `lyrics` junto a ella. **La contraseña se guarda codificada en Base64, no cifrada**: cualquier persona con acceso al archivo puede recuperarla. Utiliza una cuenta de equipo protegida y una contraseña exclusiva. No compartas el archivo de configuración ni el registro `crash.log` sin revisarlos. Prefiere una conexión HTTPS de confianza para acceder a tu servidor.
+La configuración se guarda en `%USERPROFILE%\.config\tecnomata-hifi\config.json` y la caché de letras en la carpeta `lyrics` junto a ella. La contraseña se guarda en el Administrador de credenciales de Windows mediante `keyring`, no en el archivo JSON. Si existe una contraseña de una versión anterior, se migra al almacén al iniciar y solo se retira del JSON cuando se guardó correctamente. No compartas el archivo de configuración ni el registro `crash.log` sin revisarlos. Prefiere una conexión HTTPS de confianza para acceder a tu servidor.
 
 Al buscar letras, la aplicación puede enviar el nombre de artista y canción a LRCLIB y lyrics.ovh. La reproducción depende de los formatos compatibles con el sistema y del servidor. El streaming FLAC y el uso prolongado requieren más pruebas; no se ofrece un binario firmado.
