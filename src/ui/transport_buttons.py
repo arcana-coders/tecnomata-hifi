@@ -262,7 +262,7 @@ class SonyTransportButton(QAbstractButton):
         elif btn_type == "shuffle":
             # Flechas cruzadas estilo Hi-Fi Deck (Aleatorio / Shuffle)
             p.setPen(QPen(color, 1.8, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
-            p.setBrush(Qt.NoPen)
+            p.setBrush(Qt.NoBrush)
             # Línea 1: arriba-izq a abajo-der
             p.drawLine(QPointF(cx - 6, cy - 3.5), QPointF(cx + 3, cy + 3.5))
             # Flecha 1
@@ -279,7 +279,7 @@ class SonyTransportButton(QAbstractButton):
         elif btn_type == "repeat":
             # Bucle de repetición con flecha (Repeat / Loop)
             p.setPen(QPen(color, 1.8, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
-            p.setBrush(Qt.NoPen)
+            p.setBrush(Qt.NoBrush)
             # Rectángulo con extremos curvos
             p.drawRoundedRect(QRectF(cx - 5.5, cy - 4.5, 11, 9), 2.5, 2.5)
             # Flecha en la parte superior derecha
@@ -302,3 +302,4 @@ class SonyTransportButton(QAbstractButton):
             rw, rh, sp = 12.0, 2.0, 2.2
             for i in (-1, 0, 1):
                 p.drawRoundedRect(QRectF(cx - rw / 2, cy + i * (rh + sp) - rh / 2, rw, rh), 0.6, 0.6)
+
